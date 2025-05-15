@@ -81,6 +81,8 @@ npm install
 ```bash
 npm run dev
 ```
+![image](https://github.com/user-attachments/assets/9a11f0a3-487b-4230-bb2f-4c75b310d807)
+
 
 
 
