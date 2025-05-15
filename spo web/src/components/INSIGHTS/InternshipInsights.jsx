@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import InternshipCard from './InternshipCard';
 
 
@@ -7,6 +7,9 @@ import InternshipCard from './InternshipCard';
 
 
 const InternshipInsights = () => {
+
+  const [search, setSearch] = useState('');
+  const [departmentFilter, setDepartmentFilter] = useState('All');
 
   const Internstudents=[
     { 
@@ -60,9 +63,41 @@ const InternshipInsights = () => {
       link:"",
   },
 
+  
+
 ];
 
-  return (
+    // Filtered list
+      const filteredStudents = Internstudents.filter(student => {
+        const matchesSearch = student.name.toLowerCase().includes(search.toLowerCase());
+        const matchesDept = departmentFilter === 'All' || student.department === departmentFilter;
+        return matchesSearch && matchesDept;
+      });
+
+  return (<>
+    {/* 🔍 Search & Filter */}
+      <div className="flex flex-col md:flex-row justify-center gap-4 mt-6 items-center px-4">
+        <input
+          type="text"
+          placeholder="Search by name..."
+          className="border border-gray-300 rounded px-4 py-2 w-full md:w-1/3"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <select
+          className="border border-gray-300 rounded px-4 py-2"
+          value={departmentFilter}
+          onChange={(e) => setDepartmentFilter(e.target.value)}
+        >
+          <option value="All">All Departments</option>
+          <option value="CSE">CSE</option>
+          <option value="CHE">CHE</option>
+          {/* Add more departments as needed */}
+        </select>
+      </div>
+
+
+
     <div>
     <div className='text-3xl font-extrabold flex flex-col items-center mt-20'>2024 Placement Insights</div>
     <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center mx-auto p-8 max-w-7xl'>
@@ -85,6 +120,7 @@ const InternshipInsights = () => {
 
 
     </div>
+    </>
   )
 }
 
